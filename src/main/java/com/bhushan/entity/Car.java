@@ -1,6 +1,5 @@
 package com.bhushan.entity;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +10,11 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = "carseq", initialValue = 10000, sequenceName = "car_seq", allocationSize = 1)
-@NamedQuery(name = "getAll", query = "SELECT * FROM Car")
+@NamedQuery(name = "getAll", query = "SELECT c FROM Car c")
 @NamedQuery(name = "byPrice", query = "SELECT c FROM Car c WHERE c.price BETWEEN :min AND :max")
-@NamedQuery(name = "byName", query = "SELECT c FROM Car c WHERE c.name EQUALS :name")
-@NamedQuery(name = "byModelNumber", query = "SELECT c FROM Car c WHERE c.modelNumber EQUALS :modelNumber")
-@NamedQuery(name = "byRating", query = "SELECT c FROM Car c WHERE c.rating EQUALS :rating")
+@NamedQuery(name = "byName", query = "SELECT c FROM Car c WHERE c.name = :name")
+@NamedQuery(name = "byModelNumber", query = "SELECT c FROM Car c WHERE c.modelNumber = :modelNumber")
+@NamedQuery(name = "byRating", query = "SELECT c FROM Car c WHERE c.rating = :rating")
 public class Car {
 	
 	@Id
@@ -28,14 +27,15 @@ public class Car {
 	@Column(length = 20)
 	private String modelNumber;
 	
-	@Column(length = 20)
+	@Column(length = 1000)
 	private String description;
 	
 	private double price;
 	
 	private double rating;
 	
-	private List<String> images;
+	@Column(length = 100) 
+	private String images;
 	
 	public int getId() {
 		return id;
@@ -73,10 +73,10 @@ public class Car {
 	public void setRating(double rating) {
 		this.rating = rating;
 	}
-	public List<String> getImages() {
+	public String getImages() {
 		return images;
 	}
-	public void setImages(List<String> images) {
+	public void setImages(String images) {
 		this.images = images;
 	}
 	
